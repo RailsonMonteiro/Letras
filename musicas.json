@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "titulo": "Hoje",
+    "artista": "Joyce Zanardi",
+    "letra": "Olho o tempo olho a vida\nSentimentos vem e vão\nEntre livros e palavras\nProcuro por sabedoria\nMas parece que na busca\nEu me perco por tentar\nE percebo que sozinho não há como encontrar o Teu lugar\n\nHoje eu quebro meu silencio pra Te ouvir\nHoje eu sou Teu\nHoje preciso amar e ser amado\nHoje eu vou viver, hoje eu vou viver\n\nNos meus passos nos meus atos\ntento ser o que não sou\nÉ tão difícil ser exposto\nMas da verdade eu preciso\n\nHoje, eu quebro o meu silêncio pra Te ouvir\nHoje, eu sou Teu\nHoje, preciso amar e ser amado\nHoje eu vou viver, hoje eu vou viver\n\nDescobri que existe graça\nPara todo que aceitar\nTudo agora faz sentido\nSuspiro por eternidade\n\nHoje, eu quebro o meu silêncio pra Te ouvir\nHoje, eu sou Teu\nHoje, preciso amar e ser amado\n\nHoje, eu quebro o meu silêncio pra Te ouvir\nHoje, eu sou Teu\nHoje, preciso amar e ser amado\nHoje eu vou viver\nHoje eu vou viver"
+  },
+  {
+    "id": 2,
+    "titulo": "Música Natal",
+    "artista": "Railson",
+    "letra": "Primeira linha da música\nSegunda linha\n\nREFRÃO\nEste é o refrão da música\nEle é repetido com destaque\nÚltima linha",
+    
+    "refrão": {
+      "cor": "blue",
+      "tamanho": "22px",
+      "fonte": "Verdana",
+      "negrito": true,
+      "italico": true,
+      "sublinhado": false
+    }
+  }
+]
