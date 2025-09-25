@@ -3,16 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Banco de Músicas Grande</title>
+<title>Banco de Letras</title>
+<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 <style>
 /* ======== ESTILOS GERAIS ======== */
-body { 
-  font-family: Arial, sans-serif; 
-  margin: 0; 
-  background: #f0f2f5; 
-  color: #333; 
+html, body {
+    height: 100%;               /* Garante que o body ocupe toda a altura da tela */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    display: flex;              /* Flexbox vertical */
+    flex-direction: column;
 }
 
+.container {
+    flex: 1;                   /* Conteúdo principal ocupa espaço disponível */
+}
+
+/* ======== HEADER ======== */
 header { 
   background: #007bff; 
   color: white; 
@@ -48,7 +57,6 @@ button:hover { background: #218838; }
 
 /* ======== RESULTADOS ======== */
 #resultado { max-width: 900px; margin: 20px auto; }
-
 .musica { 
   background: #fff; 
   padding: 15px; 
@@ -98,50 +106,59 @@ mark { background: yellow; color: black; }
   font-weight: bold; 
   border: none; 
 }
+
+/* ======== FOOTER ======== */
+footer {
+    background-color: #003976; /* cor do footer */
+    color: #fff; 
+    text-align: center;
+    padding: 15px 0;
+    font-size: 10px;
+}
 </style>
 </head>
 <body>
-<header>🎵 Banco de Músicas Grande</header>
+
+<div class="container">
+<header>
+  <i class="fi fi-rr-microphone-alt"></i> Letras de Músicas <i class="fi fi-rr-list-music"></i>
+</header>
 
 <!-- ======== BARRA DE PESQUISA ======== -->
 <div class="controle">
   <input type="text" id="pesquisa" placeholder="Digite título ou artista">
-  <button onclick="pesquisar()">Pesquisar</button>
-  <button onclick="mostrarTodos()">Ver Todos</button>
+  <!--<button onclick="pesquisar()">Pesquisar</button>
+  <button onclick="mostrarTodos()">Ver Todos</button>-->
 </div>
 
 <!-- ======== ÁREA DE RESULTADOS ======== -->
 <div id="resultado"></div>
 <div id="paginacao"></div>
+</div> <!-- fim container -->
 
 <script>
-/* ======== VARIÁVEIS GLOBAIS ======== */
 let musicas = [];        // armazena todas as músicas
 let encontrados = [];    // resultado da pesquisa
 let paginaAtual = 1;     // controle da paginação
-const porPagina = 10;    // músicas por página
+const porPagina = 5;     // músicas por página
 
-/* ======== CARREGAR JSON DE MÚSICAS ======== */
 async function carregarMusicas(){
   try{
     const resp = await fetch('musicas.json');
     if(!resp.ok) throw new Error('JSON externo não encontrado');
     musicas = await resp.json();
   }catch(e){
-    // fallback de teste se JSON não estiver disponível
     musicas = [
-      {"id":1,"titulo":"Música 1","artista":"Artista 1","letra":"[verso]Letra da Música 1\nLinha 2\n[refrão]Refrão da música"},
-      {"id":2,"titulo":"Música 2","artista":"Artista 1","letra":"[verso]Letra da Música 2\nLinha 2\n[refrão]Refrão da música"}
+      {"id":1,"titulo":"Hoje","artista":"Joyce Zanardi","letra":"Olho o tempo olho a vida\nSentimentos vem e vão\nEntre livros e palavras"},
+      {"id":2,"titulo":"Música 2","artista":"Artista 1","letra":"Letra da Música 2\nLinha 2\nRefrão da música"}
     ];
   }
   encontrados = [...musicas];
   mostrarPagina();
 }
 
-/* ======== EVENTO: PESQUISA DINÂMICA ======== */
 document.getElementById("pesquisa").addEventListener("input",()=>pesquisar());
 
-/* ======== FUNÇÃO DE PESQUISA ======== */
 function pesquisar(){
   const termo = document.getElementById("pesquisa").value.toLowerCase();
   encontrados = musicas.filter(m=>m.titulo.toLowerCase().includes(termo) || m.artista.toLowerCase().includes(termo));
@@ -149,21 +166,18 @@ function pesquisar(){
   mostrarPagina();
 }
 
-/* ======== MOSTRAR TODOS ======== */
 function mostrarTodos(){
   encontrados = [...musicas];
   paginaAtual=1;
   mostrarPagina();
 }
 
-/* ======== DESTACAR TERMO PESQUISADO ======== */
 function destacar(texto, termo){
   if(!termo) return texto;
   const regex = new RegExp(`(${termo})`, 'gi');
   return texto.replace(regex,'<mark>$1</mark>');
 }
 
-/* ======== MOSTRAR PÁGINA ======== */
 function mostrarPagina(){
   const div = document.getElementById("resultado");
   if(encontrados.length===0){
@@ -178,20 +192,19 @@ function mostrarPagina(){
 
   const termo = document.getElementById("pesquisa").value.toLowerCase();
   div.innerHTML = pagina.map(m=>{
-    const trecho = m.letra.split("\n").slice(0,2).join("\n"); // mostra só 2 linhas
+    const trecho = m.letra.split("\n").slice(0,2).join("\n");
     return `
       <div class="musica">
         <h2>${destacar(m.titulo, termo)}</h2>
         <h3>${destacar(m.artista, termo)}</h3>
         <pre class="trecho">${destacar(trecho, termo)}...</pre>
-        <a class="ver-mais" href="musicas.html?id=${m.id}">Ver letra completa</a>
+        <a class="ver-mais" href="musicas.html?id=${m.id}">Ver</a>
       </div>`;
   }).join("");
 
   montarPaginacao();
 }
 
-/* ======== PAGINAÇÃO ======== */
 function montarPaginacao(){
   const totalPaginas = Math.ceil(encontrados.length/porPagina);
   const pagDiv = document.getElementById("paginacao");
@@ -205,8 +218,12 @@ function montarPaginacao(){
   }
 }
 
-/* ======== INICIAR SISTEMA ======== */
 carregarMusicas();
 </script>
+
+<footer> 
+  Copyright © 2025 Railson Monteiro. Todos os direitos reservados.
+</footer>
+
 </body>
 </html>
