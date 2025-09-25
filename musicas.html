@@ -35,12 +35,20 @@
     margin-bottom: 20px;
   }
 
-  /* Letra da música */
+  /* Letra da música (versos normais) */
   pre {
-    white-space: pre-wrap;  /* Permite quebrar linhas automáticas */
-    font-size: 16px;
+    white-space: pre-wrap;  /* Permite quebra automática de linhas */
     line-height: 1.5;
-    color: #333;
+    margin-bottom: 15px;
+  }
+
+  /* Estilo especial para o refrão */
+  .refrao {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-left: 4px solid #007bff;
+    border-radius: 5px;
   }
 
   /* Botão de voltar */
@@ -77,15 +85,19 @@ async function carregarMusicas(){
         "id":1,
         "titulo":"Música 1",
         "artista":"Artista 1",
-        "letra":"Letra da Música 1\nLinha 2\nLinha 3\nLinha 4",
-        "estilo":{"cor":"#333","tamanho":"16px","fonte":"Arial","negrito":false,"italico":false,"sublinhado":false}
+        "versos":"Verso 1\nVerso 2\nVerso 3",
+        "refrao":"Refrão",
+        "estilo":{"cor":"#333","tamanho":"16px","fonte":"Arial","negrito":false,"italico":false,"sublinhado":false},
+        "estiloRefrao":{"cor":"red","tamanho":"20px","negrito":true,"italico":false,"sublinhado":false}
       },
       {
         "id":2,
         "titulo":"Música 2",
         "artista":"Artista 2",
-        "letra":"Letra da Música 2\nLinha 2\nLinha 3\nLinha 4",
-        "estilo":{"cor":"blue","tamanho":"18px","fonte":"Georgia","negrito":true,"italico":true,"sublinhado":true}
+        "versos":"Verso 1\nVerso 2\nVerso 3",
+        "refrao":"Refrão",
+        "estilo":{"cor":"#333","tamanho":"16px","fonte":"Arial","negrito":false,"italico":false,"sublinhado":false},
+        "estiloRefrao":{"cor":"red","tamanho":"20px","negrito":true,"italico":false,"sublinhado":false}
       }
     ];
   }
@@ -104,9 +116,9 @@ async function carregarMusicas(){
   const div = document.getElementById("musica");
 
   if(m){
-    // Pega as configurações de estilo da música (se existir)
+    /* ----- Estilo para os versos ----- */
     const estilo = m.estilo || {};
-    const css = `
+    const cssVersos = `
       color:${estilo.cor || '#333'};
       font-size:${estilo.tamanho || '16px'};
       font-family:${estilo.fonte || 'Arial'};
@@ -115,11 +127,23 @@ async function carregarMusicas(){
       text-decoration:${estilo.sublinhado ? 'underline' : 'none'};
     `;
 
-    // Monta o HTML da música com o estilo aplicado
+    /* ----- Estilo para o refrão ----- */
+    const estiloRefrao = m.estiloRefrao || {};
+    const cssRefrao = `
+      color:${estiloRefrao.cor || '#007bff'};
+      font-size:${estiloRefrao.tamanho || '18px'};
+      font-family:${estiloRefrao.fonte || 'Arial'};
+      font-weight:${estiloRefrao.negrito ? 'bold' : 'normal'};
+      font-style:${estiloRefrao.italico ? 'italic' : 'normal'};
+      text-decoration:${estiloRefrao.sublinhado ? 'underline' : 'none'};
+    `;
+
+    /* ----- Montagem do conteúdo da música ----- */
     div.innerHTML = `
       <h1>${m.titulo}</h1>
       <h2>${m.artista}</h2>
-      <pre style="${css}">${m.letra}</pre>
+      <pre style="${cssVersos}">${m.versos || m.letra || ""}</pre>
+      ${m.refrao ? `<pre class="refrao" style="${cssRefrao}">${m.refrao}</pre>` : ""}
     `;
   } else {
     div.innerHTML="<p>Música não encontrada.</p>";
