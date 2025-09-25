@@ -5,63 +5,143 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Banco de Músicas Grande</title>
 <style>
-body { font-family: Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; }
-header { background: #007bff; color: white; text-align: center; padding: 20px 0; font-size: 24px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+/* ======== ESTILOS GERAIS ======== */
+body { 
+  font-family: Arial, sans-serif; 
+  margin: 0; 
+  background: #f0f2f5; 
+  color: #333; 
+}
+
+header { 
+  background: #007bff; 
+  color: white; 
+  text-align: center; 
+  padding: 20px 0; 
+  font-size: 24px; 
+  font-weight: bold; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+}
+
+/* ======== ÁREA DE CONTROLE ======== */
 .controle { text-align: center; margin: 20px 0; }
-input { padding: 10px; width: 60%; max-width: 400px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; }
-button { padding: 10px 15px; margin: 5px; font-size: 16px; border: none; border-radius: 5px; cursor: pointer; background: #28a745; color: white; transition: background 0.3s; }
+input { 
+  padding: 10px; 
+  width: 60%; 
+  max-width: 400px; 
+  font-size: 16px; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+}
+button { 
+  padding: 10px 15px; 
+  margin: 5px; 
+  font-size: 16px; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  background: #28a745; 
+  color: white; 
+  transition: background 0.3s; 
+}
 button:hover { background: #218838; }
+
+/* ======== RESULTADOS ======== */
 #resultado { max-width: 900px; margin: 20px auto; }
-.musica { background: #fff; padding: 15px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); transition: transform 0.2s; }
-.musica:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+
+.musica { 
+  background: #fff; 
+  padding: 15px; 
+  margin-bottom: 20px; 
+  border-radius: 10px; 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
+  transition: transform 0.2s; 
+}
+.musica:hover { 
+  transform: translateY(-3px); 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15); 
+}
 .musica h2 { margin: 0; font-size: 20px; color: #007bff; }
 .musica h3 { margin: 5px 0 10px 0; color: #555; }
 .musica pre { white-space: pre-wrap; font-size: 15px; line-height: 1.5; color: #333; }
 .trecho { color: #555; margin-bottom: 5px; }
-.ver-mais { display: inline-block; margin-top: 10px; padding: 6px 12px; background: #007bff; color: #fff; border-radius: 5px; text-decoration: none; transition: background 0.3s; }
+
+/* ======== BOTÃO "VER MAIS" ======== */
+.ver-mais { 
+  display: inline-block; 
+  margin-top: 10px; 
+  padding: 6px 12px; 
+  background: #007bff; 
+  color: #fff; 
+  border-radius: 5px; 
+  text-decoration: none; 
+  transition: background 0.3s; 
+}
 .ver-mais:hover { background: #0056b3; }
+
+/* ======== DESTAQUE DE PESQUISA ======== */
 mark { background: yellow; color: black; }
+
+/* ======== PAGINAÇÃO ======== */
 #paginacao { text-align: center; margin-top: 20px; }
-#paginacao button { margin: 3px; padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; background: #eee; cursor: pointer; }
-#paginacao button.ativo { background: #007bff; color: #fff; font-weight: bold; border: none; }
+#paginacao button { 
+  margin: 3px; 
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  border: 1px solid #ccc; 
+  background: #eee; 
+  cursor: pointer; 
+}
+#paginacao button.ativo { 
+  background: #007bff; 
+  color: #fff; 
+  font-weight: bold; 
+  border: none; 
+}
 </style>
 </head>
 <body>
 <header>🎵 Banco de Músicas Grande</header>
 
+<!-- ======== BARRA DE PESQUISA ======== -->
 <div class="controle">
   <input type="text" id="pesquisa" placeholder="Digite título ou artista">
   <button onclick="pesquisar()">Pesquisar</button>
   <button onclick="mostrarTodos()">Ver Todos</button>
 </div>
 
+<!-- ======== ÁREA DE RESULTADOS ======== -->
 <div id="resultado"></div>
 <div id="paginacao"></div>
 
 <script>
-let musicas = [];
-let encontrados = [];
-let paginaAtual = 1;
-const porPagina = 20; // músicas por página
+/* ======== VARIÁVEIS GLOBAIS ======== */
+let musicas = [];        // armazena todas as músicas
+let encontrados = [];    // resultado da pesquisa
+let paginaAtual = 1;     // controle da paginação
+const porPagina = 10;    // músicas por página
 
+/* ======== CARREGAR JSON DE MÚSICAS ======== */
 async function carregarMusicas(){
   try{
     const resp = await fetch('musicas.json');
     if(!resp.ok) throw new Error('JSON externo não encontrado');
     musicas = await resp.json();
   }catch(e){
-    // fallback offline
+    // fallback de teste se JSON não estiver disponível
     musicas = [
-      {"id":1,"titulo":"Música 1","artista":"Artista 1","letra":"Letra da Música 1\nLinha 2\nLinha 3\nLinha 4"},
-      {"id":2,"titulo":"Música 2","artista":"Artista 1","letra":"Letra da Música 2\nLinha 2\nLinha 3\nLinha 4"}
+      {"id":1,"titulo":"Música 1","artista":"Artista 1","letra":"[verso]Letra da Música 1\nLinha 2\n[refrão]Refrão da música"},
+      {"id":2,"titulo":"Música 2","artista":"Artista 1","letra":"[verso]Letra da Música 2\nLinha 2\n[refrão]Refrão da música"}
     ];
   }
   encontrados = [...musicas];
   mostrarPagina();
 }
 
+/* ======== EVENTO: PESQUISA DINÂMICA ======== */
 document.getElementById("pesquisa").addEventListener("input",()=>pesquisar());
 
+/* ======== FUNÇÃO DE PESQUISA ======== */
 function pesquisar(){
   const termo = document.getElementById("pesquisa").value.toLowerCase();
   encontrados = musicas.filter(m=>m.titulo.toLowerCase().includes(termo) || m.artista.toLowerCase().includes(termo));
@@ -69,18 +149,21 @@ function pesquisar(){
   mostrarPagina();
 }
 
+/* ======== MOSTRAR TODOS ======== */
 function mostrarTodos(){
   encontrados = [...musicas];
   paginaAtual=1;
   mostrarPagina();
 }
 
+/* ======== DESTACAR TERMO PESQUISADO ======== */
 function destacar(texto, termo){
   if(!termo) return texto;
   const regex = new RegExp(`(${termo})`, 'gi');
   return texto.replace(regex,'<mark>$1</mark>');
 }
 
+/* ======== MOSTRAR PÁGINA ======== */
 function mostrarPagina(){
   const div = document.getElementById("resultado");
   if(encontrados.length===0){
@@ -95,19 +178,20 @@ function mostrarPagina(){
 
   const termo = document.getElementById("pesquisa").value.toLowerCase();
   div.innerHTML = pagina.map(m=>{
-    const trecho = m.letra.split("\n").slice(0,2).join("\n");
+    const trecho = m.letra.split("\n").slice(0,2).join("\n"); // mostra só 2 linhas
     return `
       <div class="musica">
         <h2>${destacar(m.titulo, termo)}</h2>
         <h3>${destacar(m.artista, termo)}</h3>
         <pre class="trecho">${destacar(trecho, termo)}...</pre>
-        <a class="ver-mais" href="musica.html?id=${m.id}">Ver letra completa</a>
+        <a class="ver-mais" href="musicas.html?id=${m.id}">Ver letra completa</a>
       </div>`;
   }).join("");
 
   montarPaginacao();
 }
 
+/* ======== PAGINAÇÃO ======== */
 function montarPaginacao(){
   const totalPaginas = Math.ceil(encontrados.length/porPagina);
   const pagDiv = document.getElementById("paginacao");
@@ -121,6 +205,7 @@ function montarPaginacao(){
   }
 }
 
+/* ======== INICIAR SISTEMA ======== */
 carregarMusicas();
 </script>
 </body>
