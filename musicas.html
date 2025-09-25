@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Música</title>
+<title>Música & Letra</title>
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 <link rel="icon" sizes="32" href="icon-512.png" />
 <style>
@@ -41,6 +41,7 @@
   }
 
   a {
+    margin-top: 20px;
     display: inline-block;
     text-decoration: none;
     color: #77818b;
@@ -163,7 +164,7 @@ async function carregarMusicas(){
     const estilo = m.estilo || {};
     const cssVersos = `
       color:${estilo.cor || '#333'};
-      font-size:${estilo.tamanho || '16px'};
+      font-size:${estilo.tamanho || '18px'};
       font-family:${estilo.fonte || 'Arial'};
       font-weight:${estilo.negrito ? 'bold' : 'normal'};
       font-style:${estilo.italico ? 'italic' : 'normal'};
