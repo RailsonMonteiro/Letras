@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Banco de Letras</title>
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#007bff">
+
 <style>
 /* ======== ESTILOS GERAIS ======== */
 html, body {
@@ -219,6 +222,14 @@ function montarPaginacao(){
 
 carregarMusicas();
 </script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(() => console.log('Service Worker registrado!'));
+}
+</script>
+
 
 <footer> 
   Copyright © 2025 Railson Monteiro. Todos os direitos reservados.
