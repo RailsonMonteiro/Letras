@@ -3,21 +3,16 @@
     "id": 1,
     "titulo": "Hoje",
     "artista": "Joyce Zanardi",
-    "letra": "Olho o tempo olho a vida\nSentimentos vem e vão\nEntre livros e palavras\nProcuro por sabedoria\nMas parece que na busca\nEu me perco por tentar\nE percebo que sozinho não há como encontrar o Teu lugar\n\nHoje eu quebro meu silencio pra Te ouvir\nHoje eu sou Teu\nHoje preciso amar e ser amado\nHoje eu vou viver, hoje eu vou viver\n\nNos meus passos nos meus atos\ntento ser o que não sou\nÉ tão difícil ser exposto\nMas da verdade eu preciso\n\nHoje, eu quebro o meu silêncio pra Te ouvir\nHoje, eu sou Teu\nHoje, preciso amar e ser amado\nHoje eu vou viver, hoje eu vou viver\n\nDescobri que existe graça\nPara todo que aceitar\nTudo agora faz sentido\nSuspiro por eternidade\n\nHoje, eu quebro o meu silêncio pra Te ouvir\nHoje, eu sou Teu\nHoje, preciso amar e ser amado\n\nHoje, eu quebro o meu silêncio pra Te ouvir\nHoje, eu sou Teu\nHoje, preciso amar e ser amado\nHoje eu vou viver\nHoje eu vou viver"
+    "letra": "Olho o tempo olho a vida\nSentimentos vem e vão\nEntre livros e palavras\nProcuro por sabedoria\nMas parece que na busca\nEu me perco por tentar\nE percebo que sozinho não há como encontrar o Teu lugar\n\nHoje eu quebro meu silencio pra Te ouvir\nHoje eu sou Teu\nHoje preciso amar e ser amado\nHoje eu vou viver, hoje eu vou viver\n\nNos meus passos nos meus atos\ntento ser o que não sou\nÉ tão difícil ser exposto\nMas da verdade eu preciso\n\nHoje, eu quebro o meu silêncio pra Te ouvir\nHoje, eu sou Teu\nHoje, preciso amar e ser amado\nHoje eu vou viver, hoje eu vou viver\n\nDescobri que existe graça\nPara todo que aceitar\nTudo agora faz sentido\nSuspiro por eternidade\n\nHoje, eu quebro o meu silêncio pra Te ouvir\nHoje, eu sou Teu\nHoje, preciso amar e ser amado\n\nHoje, eu quebro o meu silêncio pra Te ouvir\nHoje, eu sou Teu\nHoje, preciso amar e ser amado\nHoje eu vou viver\nHoje eu vou viver",
+    "voz": "musicas/Hoje-voz.mp3",
+    "pb": "musicas/Joyce Zanardi/Hoje-pb.mp3"
   },
   {
     "id": 2,
-    "titulo": "Música Natal",
-    "artista": "Railson",
-    "letra": "Primeira linha da música\nSegunda linha\n\nREFRÃO\nEste é o refrão da música\nEle é repetido com destaque\nÚltima linha",
-    
-    "refrão": {
-      "cor": "blue",
-      "tamanho": "22px",
-      "fonte": "Verdana",
-      "negrito": true,
-      "italico": true,
-      "sublinhado": false
-    }
+    "titulo": "Alguém",
+    "artista": "Laura Morena",
+    "letra": "Se você já não pode ver\nPor detrás dessas lágrimas\nSe você já perdeu a fé\nE o que tem já não satisfaz\nHá Alguém bem aí\nÀ espera de um pedido seu\nHá Alguém a ouvir\nÀ distância de uma oração\n\nQuando tudo desabar\nE o medo encontrar\nHá Alguém\nQuando as portas se fecharem\nQuando todos o deixarem\nHá Alguém\n\nHá Alguém que ao amanhecer\nCala o mundo pra ouvir sua voz\nHá Alguém que conhece bem\nCada noite que o encontra a sós\nEle tem muito mais\nSuficiente pra quem mais perdeu\nTudo novo Ele faz\nMesmo antes de um pedido seu\n\nQuando tudo desabar\nE o medo o encontrar\nHá Alguém\nQuando as portas se fecharem\nQuando todos o deixarem\nHá Alguém\n\nMesmo que seus olhos\nNão enxerguem nada além\nHá um Deus bem perto\nVocê não está só!\n\nQuando o medo encontrar\nHá Alguém\nQuando as portas se fecharem\nQuando todos o deixarem\nHá Alguém\nHá Alguém",
+    "voz": "musicas/Laura Morena/Alguém-voz.mp3",
+    "pb": "musicas/Laura Morena/Alguém-pb.mp3"
   }
 ]
