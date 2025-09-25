@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Letra da Música</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f0f2f5;color:#333;}
+.container{max-width:800px;margin:30px auto;background:#fff;padding:25px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.15);}
+h1{color:#007bff;margin-bottom:10px;}
+h2{color:#555;margin-bottom:20px;}
+pre{white-space:pre-wrap;font-size:16px;line-height:1.5;}
+a{display:inline-block;margin-top:20px;text-decoration:none;color:#007bff;font-weight:bold;}
+a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="container">
+<div id="musica"></div>
+<a href="index.html">← Voltar à lista</a>
+</div>
+
+<script>
+async function carregarMusicas(){
+  try{
+    const resp = await fetch('musicas.json');
+    if(!resp.ok) throw new Error('JSON externo não encontrado');
+    return await resp.json();
+  }catch(e){
+    return [
+      {"id":1,"titulo":"Música 1","artista":"Artista 1","letra":"Letra da Música 1\nLinha 2\nLinha 3\nLinha 4"},
+      {"id":2,"titulo":"Música 2","artista":"Artista 1","letra":"Letra da Música 2\nLinha 2\nLinha 3\nLinha 4"}
+    ];
+  }
+}
+
+(async ()=>{
+  const musicas = await carregarMusicas();
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get("id"));
+  const m = musicas.find(x=>x.id===id);
+  const div = document.getElementById("musica");
+  if(m){
+    div.innerHTML = `<h1>${m.titulo}</h1><h2>${m.artista}</h2><pre>${m.letra}</pre>`;
+  }else{
+    div.innerHTML="<p>Música não encontrada.</p>";
+  }
+})();
+</script>
+</body>
+</html>
