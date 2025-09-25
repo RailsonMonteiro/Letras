@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Letra da Música</title>
+<title>Música</title>
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+<link rel="icon" sizes="32" href="icon-512.png" />
 <style>
   html,body {
     height: 100%;
@@ -87,16 +88,16 @@
   /* Botões flutuantes */
   .btn-audio, .btn-pause, .btn-stop {
     position: fixed;
+    margin-top: 20px;
     right: 10px;
-    color: #4235fc;
+    color: #007bff;
     border: none;
     border-radius: 30%;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     font-weight: bold;
-    font-size: 10px;
+    font-size: 15px;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     z-index: 1000;
     opacity: 0.7;
     transition: opacity 0.3s;
@@ -107,8 +108,8 @@
   }
 
   .btn-audio { top: 20px; }
-  .btn-pause { top: 58px; }
-  .btn-stop  { top: 95px; }
+  .btn-pause { top: 68px; }
+  .btn-stop  { top: 118px; }
 
   .botoes{ padding: 2px; }
 </style>
@@ -127,7 +128,7 @@
 <div class="botoes">
   <button class="btn-audio">Play</button>
   <button class="btn-pause"><i class="fi fi-rr-play"></i></button>
-  <button class="btn-stop"><i class="fi fi-rr-stop-circle"></i></button>
+  <button class="btn-stop"><i class="fi fi-rr-stop"></i></button>
 </div>
 
 <script>
