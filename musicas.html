@@ -5,44 +5,123 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Letra da Música</title>
 <style>
-body{font-family:Arial,sans-serif;margin:0;background:#f0f2f5;color:#333;}
-.container{max-width:800px;margin:30px auto;background:#fff;padding:25px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.15);}
-h1{color:#007bff;margin-bottom:10px;}
-h2{color:#555;margin-bottom:20px;}
-pre{white-space:pre-wrap;font-size:16px;line-height:1.5;}
-a{display:inline-block;margin-top:20px;text-decoration:none;color:#007bff;font-weight:bold;}
-a:hover{text-decoration:underline;}
+  /* ---------- ESTILOS GERAIS ---------- */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f0f2f5;
+    color: #333;
+  }
+
+  /* Container centralizado da página */
+  .container {
+    max-width: 800px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  /* Título (nome da música) */
+  h1 {
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+
+  /* Subtítulo (nome do artista) */
+  h2 {
+    color: #555;
+    margin-bottom: 20px;
+  }
+
+  /* Letra da música */
+  pre {
+    white-space: pre-wrap;  /* Permite quebrar linhas automáticas */
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+  }
+
+  /* Botão de voltar */
+  a {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
 </style>
 </head>
 <body>
 <div class="container">
-<div id="musica"></div>
-<a href="index.html">← Voltar à lista</a>
+  <div id="musica"></div>
+  <a href="index.html">← Voltar à lista</a>
 </div>
 
 <script>
+/* ---------- FUNÇÃO PARA CARREGAR O JSON DE MÚSICAS ---------- */
 async function carregarMusicas(){
-  try{
+  try {
     const resp = await fetch('musicas.json');
     if(!resp.ok) throw new Error('JSON externo não encontrado');
     return await resp.json();
-  }catch(e){
+  } catch(e) {
+    // Fallback de exemplo se o JSON não for encontrado
     return [
-      {"id":1,"titulo":"Música 1","artista":"Artista 1","letra":"Letra da Música 1\nLinha 2\nLinha 3\nLinha 4"},
-      {"id":2,"titulo":"Música 2","artista":"Artista 1","letra":"Letra da Música 2\nLinha 2\nLinha 3\nLinha 4"}
+      {
+        "id":1,
+        "titulo":"Música 1",
+        "artista":"Artista 1",
+        "letra":"Letra da Música 1\nLinha 2\nLinha 3\nLinha 4",
+        "estilo":{"cor":"#333","tamanho":"16px","fonte":"Arial","negrito":false,"italico":false,"sublinhado":false}
+      },
+      {
+        "id":2,
+        "titulo":"Música 2",
+        "artista":"Artista 2",
+        "letra":"Letra da Música 2\nLinha 2\nLinha 3\nLinha 4",
+        "estilo":{"cor":"blue","tamanho":"18px","fonte":"Georgia","negrito":true,"italico":true,"sublinhado":true}
+      }
     ];
   }
 }
 
+/* ---------- FUNÇÃO PRINCIPAL ---------- */
 (async ()=>{
   const musicas = await carregarMusicas();
+
+  // Pega o parâmetro ID da URL (?id=1)
   const params = new URLSearchParams(window.location.search);
   const id = parseInt(params.get("id"));
+
+  // Busca a música correspondente no JSON
   const m = musicas.find(x=>x.id===id);
   const div = document.getElementById("musica");
+
   if(m){
-    div.innerHTML = `<h1>${m.titulo}</h1><h2>${m.artista}</h2><pre>${m.letra}</pre>`;
-  }else{
+    // Pega as configurações de estilo da música (se existir)
+    const estilo = m.estilo || {};
+    const css = `
+      color:${estilo.cor || '#333'};
+      font-size:${estilo.tamanho || '16px'};
+      font-family:${estilo.fonte || 'Arial'};
+      font-weight:${estilo.negrito ? 'bold' : 'normal'};
+      font-style:${estilo.italico ? 'italic' : 'normal'};
+      text-decoration:${estilo.sublinhado ? 'underline' : 'none'};
+    `;
+
+    // Monta o HTML da música com o estilo aplicado
+    div.innerHTML = `
+      <h1>${m.titulo}</h1>
+      <h2>${m.artista}</h2>
+      <pre style="${css}">${m.letra}</pre>
+    `;
+  } else {
     div.innerHTML="<p>Música não encontrada.</p>";
   }
 })();
