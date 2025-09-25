@@ -1,21 +1,29 @@
 [
   {
     "id": 0,
-    "titulo": "Música 0",
+    "titulo": "Railson",
     "artista": "Artista <ReferenceError: int is not defined>",
     "letra": "Letra da Música 0\nLinha 2\nLinha 3\nLinha 4"
   },
-  {
+ {
     "id": 1,
-    "titulo": "Música 1",
-    "artista": "Artista <ReferenceError: int is not defined>",
-    "letra": "Letra da Música 1\nLinha 2\nLinha 3\nLinha 4"
+    "titulo": "Música Especial",
+    "artista": "Artista Teste",
+    "letra": "Primeira linha da música\nSegunda linha\nTerceira linha",
+    "estilo": {
+      "cor": "darkred",
+      "tamanho": "20px",
+      "fonte": "Georgia",
+      "negrito": true,
+      "italico": false,
+      "sublinhado": true
+    }
   },
   {
     "id": 2,
-    "titulo": "Música 2",
-    "artista": "Artista <ReferenceError: int is not defined>",
-    "letra": "Letra da Música 2\nLinha 2\nLinha 3\nLinha 4"
+    "titulo": "Outra Música",
+    "artista": "Banda X",
+    "letra": "Linha 1\nLinha 2\nanimado aqui"
   },
   {
     "id": 3,
