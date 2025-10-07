@@ -1,0 +1,109 @@
+/* ======== ESTILOS GERAIS ======== */
+html, body {
+    height: 100%;               /* Garante que o body ocupe toda a altura da tela */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    display: flex;              /* Flexbox vertical */
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;                   /* Conteúdo principal ocupa espaço disponível */
+}
+
+/* ======== HEADER ======== */
+header { 
+  background: #007bff; 
+  color: white; 
+  text-align: center; 
+  padding: 20px 0; 
+  font-size: 24px; 
+  font-weight: bold; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+}
+
+/* ======== ÁREA DE CONTROLE ======== */
+.controle { text-align: center; margin: 20px 0; }
+input { 
+  padding: 10px; 
+  width: 60%; 
+  max-width: 400px; 
+  font-size: 16px; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+}
+button { 
+  padding: 10px 15px; 
+  margin: 5px; 
+  font-size: 16px; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  background: #28a745; 
+  color: white; 
+  transition: background 0.3s; 
+}
+button:hover { background: #218838; }
+
+/* ======== RESULTADOS ======== */
+#resultado { max-width: 900px; margin: 20px auto; }
+.musica { 
+  background: #fff; 
+  padding: 15px; 
+  margin-bottom: 20px; 
+  border-radius: 10px; 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
+  transition: transform 0.2s; 
+}
+.musica:hover { 
+  transform: translateY(-3px); 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15); 
+}
+.musica h2 { margin: 0; font-size: 20px; color: #007bff; }
+.musica h3 { margin: 5px 0 10px 0; color: #555; }
+.musica pre { white-space: pre-wrap;font-family: Arial; font-size: 15px; line-height: 1.5; color: #787878; }
+.trecho { color: #555; margin-bottom: 5px; }
+
+/* ======== BOTÃO "VER MAIS" ======== */
+.ver-mais { 
+  display: inline-block; 
+  margin-top: 10px; 
+  padding: 6px 12px; 
+  background: #007bff; 
+  color: #fff; 
+  border-radius: 5px; 
+  text-decoration: none; 
+  transition: background 0.3s; 
+}
+.ver-mais:hover { background: #0056b3; }
+
+/* ======== DESTAQUE DE PESQUISA ======== */
+mark { background: yellow; color: black; }
+
+/* ======== PAGINAÇÃO ======== */
+#paginacao { text-align: center; margin-top: 20px; }
+#paginacao button { 
+  margin: 3px; 
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  border: 1px solid #ccc; 
+  background: #eee; 
+  cursor: pointer;
+  color: #555;
+}
+#paginacao button.ativo { 
+  background: #007bff; 
+  color: #fff; 
+  font-weight: bold; 
+  border: none; 
+}
+
+/* ======== FOOTER ======== */
+footer {
+    color: #77818b; 
+    text-align: center;
+    padding: 15px 0;
+    font-size: 10px;
+}
