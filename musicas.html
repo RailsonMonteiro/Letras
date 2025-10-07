@@ -3,130 +3,157 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#007bff">
-<title>Músicas & Letras</title>
-
+<title>Música & Letra</title>
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-<link rel="manifest" href="manifest.json">
 <link rel="icon" sizes="32" href="icon-512.png" />
-<link rel="stylesheet" href="css/styles_index.css">
-
+<link rel="stylesheet" href="css/styles_music.css">
 </head>
 <body>
-
 <div class="container">
-<header>
-  <i class="fi fi-rr-microphone-alt"></i> Músicas & Letras <i class="fi fi-rr-list-music"></i>
-</header>
-
-<!-- ======== BARRA DE PESQUISA ======== -->
-<div class="controle">
-  <input type="text" id="pesquisa" placeholder="Digite título ou artista">
-  <!--<button onclick="pesquisar()">Pesquisar</button>
-  <button onclick="mostrarTodos()">Ver Todos</button>-->
+  <!-- Player fixo -->
+  <div id="playerBar">
+    <div id="progress"><span></span></div>
+    <div id="time">0:00 / 0:00</div>
+  </div>
+  <a href="index.html"><i class="fi fi-rr-undo">Voltar</i></a>
+  <div id="musica"></div>
 </div>
 
-<!-- ======== ÁREA DE RESULTADOS ======== -->
-<div id="resultado"></div>
-<div id="paginacao"></div>
-</div> <!-- fim container -->
+<div class="botoes">
+  <button class="btn-audio">Play</button>
+  <button class="btn-pause"><i class="fi fi-rr-play"></i></button>
+  <button class="btn-stop"><i class="fi fi-rr-stop"></i></button>
+</div>
 
 <script>
-let musicas = [];        // armazena todas as músicas
-let encontrados = [];    // resultado da pesquisa
-let paginaAtual = 1;     // controle da paginação
-const porPagina = 5;     // músicas por página
-
 async function carregarMusicas(){
-  try{
+  try {
     const resp = await fetch('musicas.json');
     if(!resp.ok) throw new Error('JSON externo não encontrado');
-    musicas = await resp.json();
-  }catch(e){
-    musicas = [
-      {"id":1,"titulo":"Hoje","artista":"Joyce Zanardi","letra":"Olho o tempo olho a vida\nSentimentos vem e vão\nEntre livros e palavras"},
-      {"id":2,"titulo":"Música 2","artista":"Artista 1","letra":"Letra da Música 2\nLinha 2\nRefrão da música"}
+    return await resp.json();
+  } catch(e) {
+    return [
+      {
+        "id":1,
+        "titulo":"Joyce",
+        "artista":"Artista 1",
+        "versos":"Verso 1\nVerso 2\nVerso 3",
+        "refrao":"Refrão",
+        "estilo":{"cor":"#333","tamanho":"16px","fonte":"Arial"},
+        "estiloRefrao":{"cor":"red","tamanho":"20px","negrito":true}
+      }
     ];
   }
-  encontrados = [...musicas];
-  mostrarPagina();
 }
 
-document.getElementById("pesquisa").addEventListener("input",()=>pesquisar());
+(async ()=>{
+  const musicas = await carregarMusicas();
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get("id"));
+  const m = musicas.find(x=>x.id===id);
+  const div = document.getElementById("musica");
 
-function pesquisar(){
-  const termo = document.getElementById("pesquisa").value.toLowerCase();
-  encontrados = musicas.filter(m=>m.titulo.toLowerCase().includes(termo) || m.artista.toLowerCase().includes(termo));
-  paginaAtual=1;
-  mostrarPagina();
-}
+  if(m){
+    const estilo = m.estilo || {};
+    const cssVersos = `
+      color:${estilo.cor || '#333'};
+      font-size:${estilo.tamanho || '18px'};
+      font-family:${estilo.fonte || 'Arial'};
+      font-weight:${estilo.negrito ? 'bold' : 'normal'};
+      font-style:${estilo.italico ? 'italic' : 'normal'};
+      text-decoration:${estilo.sublinhado ? 'underline' : 'none'};
+    `;
+    const estiloRefrao = m.estiloRefrao || {};
+    const cssRefrao = `
+      color:${estiloRefrao.cor || '#007bff'};
+      font-size:${estiloRefrao.tamanho || '18px'};
+      font-family:${estiloRefrao.fonte || 'Arial'};
+      font-weight:${estiloRefrao.negrito ? 'bold' : 'normal'};
+      font-style:${estiloRefrao.italico ? 'italic' : 'normal'};
+      text-decoration:${estiloRefrao.sublinhado ? 'underline' : 'none'};
+    `;
 
-function mostrarTodos(){
-  encontrados = [...musicas];
-  paginaAtual=1;
-  mostrarPagina();
-}
+    div.innerHTML = `
+      <h1>${m.titulo}</h1>
+      <h2>${m.artista}</h2>
+      <pre style="${cssVersos}">${m.versos || m.letra || ""}</pre>
+      ${m.refrao ? `<pre class="refrao" style="${cssRefrao}">${m.refrao}</pre>` : ""}
+    `;
 
-function destacar(texto, termo){
-  if(!termo) return texto;
-  const regex = new RegExp(`(${termo})`, 'gi');
-  return texto.replace(regex,'<mark>$1</mark>');
-}
+    const btn = document.querySelector(".btn-audio");
+    const btnPause = document.querySelector(".btn-pause");
+    const btnStop  = document.querySelector(".btn-stop");
 
-function mostrarPagina(){
-  const div = document.getElementById("resultado");
-  if(encontrados.length===0){
-    div.innerHTML="<p style='text-align:center;'>Nenhuma música encontrada.</p>";
-    document.getElementById("paginacao").innerHTML="";
-    return;
+    let modo = "voz";
+    const audio = new Audio();
+    const playerBar = document.getElementById("playerBar");
+    const progress = document.querySelector("#progress span");
+    const time = document.getElementById("time");
+
+    function tocar() {
+      let arquivo = modo==="voz" ? `musicas/${m.titulo}-voz.mp3` : `musicas/${m.titulo}-pb.mp3`;
+      btn.textContent = modo==="voz" ? "voz" : "PB";
+      audio.src = arquivo;
+      audio.play();
+      playerBar.style.display = "flex";
+      btnPause.innerHTML = '<i class="fi fi-rr-pause"></i>';
+    }
+
+    btn.addEventListener("click", ()=>{
+      if(!audio.paused){
+        audio.pause();
+        audio.currentTime = 0;
+        modo = (modo==="voz" ? "pb" : "voz");
+        tocar();
+      } else {
+        tocar();
+      }
+    });
+
+    // Toggle Play/Pause
+    btnPause.addEventListener("click", ()=>{
+      if(audio.paused){
+        audio.play();
+        btnPause.innerHTML = '<i class="fi fi-rr-pause"></i>';
+      } else {
+        audio.pause();
+        btnPause.innerHTML = '<i class="fi fi-rr-play"></i>';
+      }
+    });
+
+    btnStop.addEventListener("click", ()=>{
+      audio.pause();
+      audio.currentTime = 0;
+      progress.style.width = "0%";
+      playerBar.style.display = "none";
+      btnPause.innerHTML = '<i class="fi fi-rr-play"></i>';
+    });
+
+    audio.addEventListener("timeupdate", ()=>{
+      if(audio.duration){
+        let percent = (audio.currentTime / audio.duration) * 100;
+        progress.style.width = percent+"%";
+        let min = Math.floor(audio.currentTime / 60);
+        let sec = Math.floor(audio.currentTime % 60).toString().padStart(2,"0");
+        let minT = Math.floor(audio.duration / 60);
+        let secT = Math.floor(audio.duration % 60).toString().padStart(2,"0");
+        time.textContent = `${min}:${sec} / ${minT}:${secT}`;
+      }
+    });
+
+    audio.addEventListener("ended", ()=>{
+      progress.style.width = "0%";
+      playerBar.style.display = "none";
+    });
+
+  } else {
+    div.innerHTML="<p>Música não encontrada.</p>";
   }
-
-  const inicio = (paginaAtual-1)*porPagina;
-  const fim = inicio+porPagina;
-  const pagina = encontrados.slice(inicio,fim);
-
-  const termo = document.getElementById("pesquisa").value.toLowerCase();
-  div.innerHTML = pagina.map(m=>{
-    const trecho = m.letra.split("\n").slice(0,2).join("\n");
-    return `
-      <div class="musica">
-        <h2>${destacar(m.titulo, termo)}</h2>
-        <h3>${destacar(m.artista, termo)}</h3>
-        <pre class="trecho">${destacar(trecho, termo)}...</pre>
-        <a class="ver-mais" href="musicas.html?id=${m.id}">Ver</a>
-      </div>`;
-  }).join("");
-
-  montarPaginacao();
-}
-
-function montarPaginacao(){
-  const totalPaginas = Math.ceil(encontrados.length/porPagina);
-  const pagDiv = document.getElementById("paginacao");
-  pagDiv.innerHTML="";
-  for(let i=1;i<=totalPaginas;i++){
-    const btn=document.createElement("button");
-    btn.textContent=i;
-    if(i===paginaAtual) btn.classList.add("ativo");
-    btn.onclick=()=>{paginaAtual=i; mostrarPagina();}
-    pagDiv.appendChild(btn);
-  }
-}
-
-carregarMusicas();
+})();
 </script>
-
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js')
-    .then(() => console.log('Service Worker registrado!'));
-}
-</script>
-
 
 <footer> 
   Copyright © 2025 Railson Monteiro. Todos os direitos reservados.
 </footer>
-
 </body>
 </html>
