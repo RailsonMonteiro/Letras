@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "titulo": "Niguem me amou assim",
+    "artista": "Art'Trios",
+    "url": "https://www.youtube.com/watch?v=tN6y9wDz4EA&list=RDtN6y9wDz4EA&start_radio=1"
+  },
+  {
+    "id": 2,
+    "titulo": "Ninguém Explica Deus",
+    "artista": "Preto no Branco",
+    "url": "https://www.youtube.com/embed/4fXKo_2mj4Y"
+  },
+  {
+    "id": 3,
+    "titulo": "Grandioso és Tu",
+    "artista": "Fernandinho",
+    "url": "https://www.youtube.com/embed/6LjeqR2sNAg"
+  }
+]

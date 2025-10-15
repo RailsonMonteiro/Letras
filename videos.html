@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vídeos & Louvor</title>
+
+<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" sizes="32" href="icon-512.png" />
+<link rel="stylesheet" href="css/styles_index.css">
+
+<style>
+nav.menu-fixa {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 10px 0;
+  z-index: 1000;
+}
+.menu-fixa a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.menu-fixa a:hover,
+.menu-fixa a.ativo {
+  color: #007bff;
+}
+.container {
+  margin-top: 70px;
+}
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+.video-container iframe,
+.video-container video {
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+.download-btn {
+  display: inline-block;
+  margin-top: 8px;
+  background: #007bff;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+}
+.download-btn:hover {
+  background: #0056b3;
+}
+</style>
+</head>
+<body>
+
+<nav class="menu-fixa">
+  <a href="index.html"><i class="fi fi-rr-microphone-alt"></i> Letras</a>
+  <a href="videos.html" class="ativo"><i class="fi fi-rr-video-camera-alt"></i> Vídeos</a>
+</nav>
+
+<div class="container">
+<header>
+  <i class="fi fi-rr-video-camera-alt"></i> Vídeos & Louvor <i class="fi fi-rr-play"></i>
+</header>
+
+<div class="controle">
+  <input type="text" id="pesquisa" placeholder="Digite título ou artista">
+</div>
+
+<div id="resultado"></div>
+<div id="paginacao"></div>
+</div>
+
+<script>
+let videos = [];
+let encontrados = [];
+let paginaAtual = 1;
+const porPagina = 5;
+
+async function carregarVideos(){
+  try{
+    const resp = await fetch('videos.json');
+    if(!resp.ok) throw new Error('JSON de vídeos não encontrado');
+    videos = await resp.json();
+  }catch(e){
+    videos = [
+      {"id":1,"titulo":"A Vitória é Certa","artista":"Eli Soares","url":"https://www.youtube.com/embed/HW9Cj0sI3Ho"},
+      {"id":2,"titulo":"Ninguém Explica Deus","artista":"Preto no Branco","url":"https://www.youtube.com/embed/4fXKo_2mj4Y"}
+    ];
+  }
+  encontrados = [...videos];
+  mostrarPagina();
+}
+
+document.getElementById("pesquisa").addEventListener("input",()=>pesquisar());
+
+function pesquisar(){
+  const termo = document.getElementById("pesquisa").value.toLowerCase();
+  encontrados = videos.filter(v=>v.titulo.toLowerCase().includes(termo) || v.artista.toLowerCase().includes(termo));
+  paginaAtual=1;
+  mostrarPagina();
+}
+
+function destacar(texto, termo){
+  if(!termo) return texto;
+  const regex = new RegExp(`(${termo})`, 'gi');
+  return texto.replace(regex,'<mark>$1</mark>');
+}
+
+function mostrarPagina(){
+  const div = document.getElementById("resultado");
+  if(encontrados.length===0){
+    div.innerHTML="<p style='text-align:center;'>Nenhum vídeo encontrado.</p>";
+    document.getElementById("paginacao").innerHTML="";
+    return;
+  }
+
+  const inicio = (paginaAtual-1)*porPagina;
+  const fim = inicio+porPagina;
+  const pagina = encontrados.slice(inicio,fim);
+  const termo = document.getElementById("pesquisa").value.toLowerCase();
+
+  div.innerHTML = pagina.map(v=>{
+    const link = v.url.includes("youtube") ? v.url.replace("/embed/", "/watch?v=") : v.url;
+    const botao = v.url.includes("youtube")
+      ? `<a class="download-btn" href="${link}" target="_blank">🔗 Assistir no YouTube</a>`
+      : `<a class="download-btn" href="${v.url}" download>⬇️ Baixar Vídeo</a>`;
+    return `
+      <div class="musica">
+        <h2>${destacar(v.titulo, termo)}</h2>
+        <h3>${destacar(v.artista, termo)}</h3>
+        <div class="video-container">
+          ${v.url.includes("youtube")
+            ? `<iframe src="${v.url}" frameborder="0" allowfullscreen></iframe>`
+            : `<video controls src="${v.url}"></video>`}
+        </div>
+        ${botao}
+      </div>`;
+  }).join("");
+
+  montarPaginacao();
+}
+
+function montarPaginacao(){
+  const totalPaginas = Math.ceil(encontrados.length/porPagina);
+  const pagDiv = document.getElementById("paginacao");
+  pagDiv.innerHTML="";
+  for(let i=1;i<=totalPaginas;i++){
+    const btn=document.createElement("button");
+    btn.textContent=i;
+    if(i===paginaAtual) btn.classList.add("ativo");
+    btn.onclick=()=>{paginaAtual=i; mostrarPagina();};
+    pagDiv.appendChild(btn);
+  }
+}
+
+carregarVideos();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(() => console.log('Service Worker registrado para vídeos!'));
+}
+</script>
+
+<footer> 
+  Copyright © 2025 Railson Monteiro. Todos os direitos reservados.
+</footer>
+
+</body>
+</html>

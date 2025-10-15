@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Letra e Louvor</title>
+
+<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" sizes="32" href="icon-512.png" />
+<link rel="stylesheet" href="css/styles_index.css">
+
+</head>
+<body>
+
+<div class="container">
+<header>
+  <i class="fi fi-rr-microphone-alt"></i> Músicas & Letras <i class="fi fi-rr-list-music"></i>
+</header>
+
+<!-- ======== BARRA DE PESQUISA ======== -->
+<div class="controle">
+  <input type="text" id="pesquisa" placeholder="Digite título ou artista">
+  <!--<button onclick="pesquisar()">Pesquisar</button>
+  <button onclick="mostrarTodos()">Ver Todos</button>-->
+</div>
+
+<!-- ======== ÁREA DE RESULTADOS ======== -->
+<div id="resultado"></div>
+<div id="paginacao"></div>
+</div> <!-- fim container -->
+
+<script>
+let musicas = [];        // armazena todas as músicas
+let encontrados = [];    // resultado da pesquisa
+let paginaAtual = 1;     // controle da paginação
+const porPagina = 5;     // músicas por página
+
+async function carregarMusicas(){
+  try{
+    const resp = await fetch('musicas.json');
+    if(!resp.ok) throw new Error('JSON externo não encontrado');
+    musicas = await resp.json();
+  }catch(e){
+    musicas = [
+      {"id":1,"titulo":"Hoje","artista":"Joyce Zanardi","letra":"Olho o tempo olho a vida\nSentimentos vem e vão\nEntre livros e palavras"},
+      {"id":2,"titulo":"Música 2","artista":"Artista 1","letra":"Letra da Música 2\nLinha 2\nRefrão da música"}
+    ];
+  }
+  encontrados = [...musicas];
+  mostrarPagina();
+}
+
+document.getElementById("pesquisa").addEventListener("input",()=>pesquisar());
+
+function pesquisar(){
+  const termo = document.getElementById("pesquisa").value.toLowerCase();
+  encontrados = musicas.filter(m=>m.titulo.toLowerCase().includes(termo) || m.artista.toLowerCase().includes(termo));
+  paginaAtual=1;
+  mostrarPagina();
+}
+
+function mostrarTodos(){
+  encontrados = [...musicas];
+  paginaAtual=1;
+  mostrarPagina();
+}
+
+function destacar(texto, termo){
+  if(!termo) return texto;
+  const regex = new RegExp(`(${termo})`, 'gi');
+  return texto.replace(regex,'<mark>$1</mark>');
+}
+
+function mostrarPagina(){
+  const div = document.getElementById("resultado");
+  if(encontrados.length===0){
+    div.innerHTML="<p style='text-align:center;'>Nenhuma música encontrada.</p>";
+    document.getElementById("paginacao").innerHTML="";
+    return;
+  }
+
+  const inicio = (paginaAtual-1)*porPagina;
+  const fim = inicio+porPagina;
+  const pagina = encontrados.slice(inicio,fim);
+
+  const termo = document.getElementById("pesquisa").value.toLowerCase();
+  div.innerHTML = pagina.map(m=>{
+    const trecho = m.letra.split("\n").slice(0,2).join("\n");
+    return `
+      <div class="musica">
+        <h2>${destacar(m.titulo, termo)}</h2>
+        <h3>${destacar(m.artista, termo)}</h3>
+        <pre class="trecho">${destacar(trecho, termo)}...</pre>
+        <a class="ver-mais" href="musicas.html?id=${m.id}">Ver</a>
+      </div>`;
+  }).join("");
+
+  montarPaginacao();
+}
+
+function montarPaginacao(){
+  const totalPaginas = Math.ceil(encontrados.length/porPagina);
+  const pagDiv = document.getElementById("paginacao");
+  pagDiv.innerHTML="";
+  for(let i=1;i<=totalPaginas;i++){
+    const btn=document.createElement("button");
+    btn.textContent=i;
+    if(i===paginaAtual) btn.classList.add("ativo");
+    btn.onclick=()=>{paginaAtual=i; mostrarPagina();}
+    pagDiv.appendChild(btn);
+  }
+}
+
+carregarMusicas();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(() => console.log('Service Worker registrado!'));
+}
+</script>
+
+
+<footer> 
+  Copyright © 2025 Railson Monteiro. Todos os direitos reservados.
+</footer>
+
+</body>
+</html>

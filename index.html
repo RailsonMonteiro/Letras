@@ -10,31 +10,67 @@
 <link rel="icon" sizes="32" href="icon-512.png" />
 <link rel="stylesheet" href="css/styles_index.css">
 
+<style>
+/* ===== MENU FIXO SUPERIOR ===== */
+nav.menu-fixa {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 10px 0;
+  z-index: 1000;
+}
+.menu-fixa a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.menu-fixa a:hover,
+.menu-fixa a.ativo {
+  color: #007bff;
+}
+.container {
+  margin-top: 70px; /* compensa o menu fixo */
+}
+</style>
 </head>
+
 <body>
+
+<!-- ===== MENU SUPERIOR FIXO ===== -->
+<nav class="menu-fixa">
+  <a href="index.html" class="ativo"><i class="fi fi-rr-microphone-alt"></i> Letras</a>
+  <a href="videos.html"><i class="fi fi-rr-video-camera-alt"></i> Vídeos</a>
+</nav>
 
 <div class="container">
 <header>
   <i class="fi fi-rr-microphone-alt"></i> Músicas & Letras <i class="fi fi-rr-list-music"></i>
 </header>
 
-<!-- ======== BARRA DE PESQUISA ======== -->
 <div class="controle">
   <input type="text" id="pesquisa" placeholder="Digite título ou artista">
-  <!--<button onclick="pesquisar()">Pesquisar</button>
-  <button onclick="mostrarTodos()">Ver Todos</button>-->
 </div>
 
-<!-- ======== ÁREA DE RESULTADOS ======== -->
 <div id="resultado"></div>
 <div id="paginacao"></div>
-</div> <!-- fim container -->
+</div>
 
 <script>
-let musicas = [];        // armazena todas as músicas
-let encontrados = [];    // resultado da pesquisa
-let paginaAtual = 1;     // controle da paginação
-const porPagina = 5;     // músicas por página
+let musicas = [];
+let encontrados = [];
+let paginaAtual = 1;
+const porPagina = 5;
 
 async function carregarMusicas(){
   try{
@@ -56,12 +92,6 @@ document.getElementById("pesquisa").addEventListener("input",()=>pesquisar());
 function pesquisar(){
   const termo = document.getElementById("pesquisa").value.toLowerCase();
   encontrados = musicas.filter(m=>m.titulo.toLowerCase().includes(termo) || m.artista.toLowerCase().includes(termo));
-  paginaAtual=1;
-  mostrarPagina();
-}
-
-function mostrarTodos(){
-  encontrados = [...musicas];
   paginaAtual=1;
   mostrarPagina();
 }
@@ -107,7 +137,7 @@ function montarPaginacao(){
     const btn=document.createElement("button");
     btn.textContent=i;
     if(i===paginaAtual) btn.classList.add("ativo");
-    btn.onclick=()=>{paginaAtual=i; mostrarPagina();}
+    btn.onclick=()=>{paginaAtual=i; mostrarPagina();};
     pagDiv.appendChild(btn);
   }
 }
@@ -121,7 +151,6 @@ if ('serviceWorker' in navigator) {
     .then(() => console.log('Service Worker registrado!'));
 }
 </script>
-
 
 <footer> 
   Copyright © 2025 Railson Monteiro. Todos os direitos reservados.
