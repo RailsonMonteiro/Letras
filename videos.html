@@ -36,7 +36,7 @@ nav.menu-fixa {
 }
 .menu-fixa a:hover,
 .menu-fixa a.ativo {
-  color: #007bff;
+  color: #00b351;
 }
 .container {
   margin-top: 70px;
@@ -61,7 +61,7 @@ nav.menu-fixa {
 .download-btn {
   display: inline-block;
   margin-top: 8px;
-  background: #007bff;
+  background: #00b351;
   color: white;
   padding: 6px 12px;
   border-radius: 6px;
@@ -69,7 +69,7 @@ nav.menu-fixa {
   font-size: 14px;
 }
 .download-btn:hover {
-  background: #0056b3;
+  background: #009141;
 }
 </style>
 </head>
@@ -81,8 +81,8 @@ nav.menu-fixa {
 </nav>
 
 <div class="container">
-<header>
-  <i class="fi fi-rr-video-camera-alt"></i> Vídeos & Louvor <i class="fi fi-rr-play"></i>
+<header class="video">
+  <i class="fi fi-rr-play-alt"></i> Vídeos & Letras <i class="fi fi-rr-list-music"></i>
 </header>
 
 <div class="controle">
@@ -145,10 +145,10 @@ function mostrarPagina(){
   div.innerHTML = pagina.map(v=>{
     const link = v.url.includes("youtube") ? v.url.replace("/embed/", "/watch?v=") : v.url;
     const botao = v.url.includes("youtube")
-      ? `<a class="download-btn" href="${link}" target="_blank">🔗 Assistir no YouTube</a>`
+      ? `<a class="download-btn" href="${link}" target="_blank">Ver no YouTube</a>`
       : `<a class="download-btn" href="${v.url}" download>⬇️ Baixar Vídeo</a>`;
     return `
-      <div class="musica">
+      <div class="video">
         <h2>${destacar(v.titulo, termo)}</h2>
         <h3>${destacar(v.artista, termo)}</h3>
         <div class="video-container">
@@ -170,7 +170,7 @@ function montarPaginacao(){
   for(let i=1;i<=totalPaginas;i++){
     const btn=document.createElement("button");
     btn.textContent=i;
-    if(i===paginaAtual) btn.classList.add("ativo");
+    if(i===paginaAtual) btn.classList.add("video","ativo");
     btn.onclick=()=>{paginaAtual=i; mostrarPagina();};
     pagDiv.appendChild(btn);
   }
