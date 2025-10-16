@@ -6,8 +6,8 @@
 <title>Letra e Louvor</title>
 
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" sizes="32" href="icon-512.png" />
+<link rel="manifest" href="js/manifest.json">
+<link rel="icon" sizes="32" href="img/icon-512.png" />
 <link rel="stylesheet" href="css/styles_index.css">
 
 <style>
@@ -74,7 +74,7 @@ const porPagina = 5;
 
 async function carregarMusicas(){
   try{
-    const resp = await fetch('musicas.json');
+    const resp = await fetch('js/musicas.json');
     if(!resp.ok) throw new Error('JSON externo não encontrado');
     musicas = await resp.json();
   }catch(e){
@@ -147,7 +147,7 @@ carregarMusicas();
 
 <script>
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js')
+  navigator.serviceWorker.register('js/service-worker.js')
     .then(() => console.log('Service Worker registrado!'));
 }
 </script>
