@@ -1,44 +1,15 @@
 [
   {
     "id": 1,
-    "titulo": "Niguem me amou assim",
-    "artista": "Art'Trios",
-    "url": "https://www.youtube.com/embed/tN6y9wDz4EA"
+    "titulo": "Intensamente",
+    "artista": "Adoradores 5",
+    "url": "https://www.youtube.com/embed/EvUlQr_NTNY"
   },
   {
     "id": 2,
-    "titulo": "Ninguém Explica Deus",
-    "artista": "Preto no Branco",
-    "url": "https://www.youtube.com/embed/4fXKo_2mj4Y"
-  },
-  {
-    "id": 3,
-    "titulo": "Grandioso és Tu",
-    "artista": "Fernandinho",
-    "url": "https://www.youtube.com/embed/6LjeqR2sNAg"
-  },
-  {
-    "id": 4,
-    "titulo": "Grandioso és Tu",
-    "artista": "Fernandinho",
-    "url": "https://www.youtube.com/embed/6LjeqR2sNAg"
-  },
-  {
-    "id": 5,
-    "titulo": "Grandioso és Tu",
-    "artista": "Fernandinho",
-    "url": "https://www.youtube.com/embed/6LjeqR2sNAg"
-  },
-  {
-    "id": 6,
-    "titulo": "Grandioso és Tu",
-    "artista": "Fernandinho",
-    "url": "https://www.youtube.com/embed/6LjeqR2sNAg"
-  },
-  {
-    "id": 7,
-    "titulo": "Grandioso és Tu",
-    "artista": "Fernandinho",
-    "url": "https://www.youtube.com/embed/6LjeqR2sNAg"
+    "titulo": "Intensamente (Playback)",
+    "artista": "Adoradores 5",
+    "url": "https://www.youtube.com/embed/aemkKcPqdRg"
   }
+
 ]
