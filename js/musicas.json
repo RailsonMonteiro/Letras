@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "titulo": "Hoje",
+       "titulo": "Hoje",
     "artista": "Joyce Zanardi",
     "letra": "Olho o tempo olho a vida\nSentimentos vem e vão\nEntre livros e palavras\nProcuro por sabedoria\nMas parece que na busca\nEu me perco por tentar\nE percebo que sozinho não há como encontrar o Teu lugar\n\nHoje eu quebro meu silencio pra Te ouvir\nHoje eu sou Teu\nHoje preciso amar e ser amado\nHoje eu vou viver, hoje eu vou viver\n\nNos meus passos nos meus atos\ntento ser o que não sou\nÉ tão difícil ser exposto\nMas da verdade eu preciso\n\nHoje, eu quebro o meu silêncio pra Te ouvir\nHoje, eu sou Teu\nHoje, preciso amar e ser amado\nHoje eu vou viver, hoje eu vou viver\n\nDescobri que existe graça\nPara todo que aceitar\nTudo agora faz sentido\nSuspiro por eternidade\n\nHoje, eu quebro o meu silêncio pra Te ouvir\nHoje, eu sou Teu\nHoje, preciso amar e ser amado\n\nHoje, eu quebro o meu silêncio pra Te ouvir\nHoje, eu sou Teu\nHoje, preciso amar e ser amado\nHoje eu vou viver\nHoje eu vou viver",
     "voz": "musicas/Hoje-voz.mp3",
@@ -46,6 +46,77 @@
   "letra":"Meus filhinhos, vou partir\nJá é quase hora\nPra onde vou ninguém pode ir\nSentem-se à mesa\n\nEis aqui meu corpo\nEis aqui meu sangue\nFoi esta razão que me trouxe aqui\nComei e bebei em memória de mim\n\nDeixem-me lavar-lhes os pés\nSomos todos servos\nEsse é o sentido\nDessa caminhada\n\nEis aqui meu corpo\nEis aqui meu sangue\nFoi esta razão que me trouxe aqui\nComei e bebei em memória\n\nEis aqui meu corpo\nEis aqui meu sangue\nFoi esta razão que me trouxe aqui\nComei e bebei em memória de mim",
   "voz":"musicas/Comei e Bebei-voz.mp3",
   "pb":"musicas/Comei e Bebei-pb.mp3"
+},
+  {
+    "id":7,
+    "titulo":"Milagre",
+    "artista":"Joyce Zanardi",
+    "letra":"Milagre, o barro ganha forma\nE se envolve com autor\nImagem sublime, perfeita semelhança\nEntre obra e escultor\n\nQuem sou eu pra lembres meu nome?\nQuem sou eu pra questionar?\nÉs o dono do tempo, o senhor da história\nSei que tens os meus dias em tuas mãos\nÉs a fonte da vida, és a minha esperança\nSei que tens o melhor pra mim senhor\nQuem sou eu? Quem sou eu?\nPra que vivas em mim\n\nMilagre, conheces o meu nome\nE anseias ouvir minha voz\nCom onisciência e a graça infinita\nConduzes meu andar",
+    "voz": "musicas/Milagre-voz.mp3",
+    "pb": "musicas/Milagre-pb.mp3"
+  },
+  {
+    "id":8,
+    "titulo":"Janelas",
+    "artista":"Joyce Zanardi",
+    "letra":"Quando me sinto sozinha\nDando voltas no mesmo lugar\nOlho as paredes bejes desse quarto\nE não vejo vida\nE a porta trancada não me liberta\n\nEntão abro a janela pra ver o dia\nEntão deixo a luz entrar\nEntão deixo a luz entrar\n\nSe você se sente solitário\nSem motivos pra sorrir\nBasta libertar-se dos fardos e culpas que adoecem a alma\nAbra as janelas e sinta o clima\nQue aquece a alma com paz na vida\n\nTudo volta pro lugar\nEncontrei alegria",
+    "voz":"musicas/Janelas-voz.mp3",
+    "pb":"musicas/Janelas-pb.mp3"
+  },
+  {
+    "id":9,
+    "titulo":"Sinfonia",
+    "artista":"Joyce Zanardi",
+    "letra":"A mesma voz que originou o mundo\nNa Palavra ela ressoa em mim\nO mesmo Deus distante e transcendente\nÉ o Verbo encarnado, Emanuel\n\nEle tira som da minha vida\nAfina as cordas\nCria uma nova melodia\nMeu Criador, meu Redentor\nDa minha dor compõe uma nova sinfonia\nSinfonia\n\nO mesmo Pai que em silêncio sofre\nMe espera na estrada vir\nO mesmo Cristo que não me condena\nÉ o Salvador que diz: Não peques mais\n\nEle tira som da minha vida\nAfina as cordas\nCria uma nova melodia\nMeu Criador, meu Redentor\nDa minha dor compõe uma nova sinfonia\nSinfonia\n\nEle tira som da minha vida\nAfina as cordas\nCria uma nova melodia\nMeu Criador, meu Redentor\nDa minha dor compõe uma nova sinfonia\nSinfonia\n\nSinfonia\nSinfonia",
+    "voz":"musicas/Sinfonia-voz.mp3",
+    "pb":"musicas/Sinfonia-pb.mp3"
+  },
+  {
+    "id":10,
+    "titulo":"Sem mais demora",
+    "artista":"Joyce Zanardi",
+    "letra":"Tenho a sua lei guardada\nDentro do meu coração\nNela posso descansar\nPois traz paz e esperança\n\nA Deus dou glória\nPois na história\nProvaste todo seu amor\nQue eu viva agora\nSem mais demora\nUma vida de gratidão\n\nBusco a ti em oração\nTenho fé em sua resposta\nOuço sua voz falar\nOnde devo caminhar\n\nViver com cristo é o que preciso\nPois nele há perdão\nSerei a prova que sua palavra\nTransforma o meu coração",
+    "voz":"musicas/Sem Mais Demora-voz.mp3",
+    "pb":"musicas/Sem Mais Demora-pb.mp3"
+  },
+  {
+    "id":11,
+    "titulo":"Quando meu Jesus Voltar",
+    "artista":"Joyce Zanardi",
+    "letra":"Estou cansado de viver aqui\nOnde as pessoas vivem sem amor\nOnde o orgulho e a inveja causam destruição\nE a paz não sei onde encontrar\n\nMas um dia tudo isso vai passar\nNova terra eu terei\nTodo olho então verá\nTodo ser se prostará\n\nQuando meu meu jesus voltar\nTodo o céu vai se abrir\nLá verei meu salvador\nE em suas marcas tocarei\nQuando meu jesus voltar\n\nExiste um céu e sei que é pra mim\nOnde a morte, pranto ou dor não existirão\nTransformados vamos ser, revestidos de poder\nE pra sempre vou morar com meu senhor\n\nSei que esse dia logo vai chegar\nNova terra eu terei\nTodo olho então verá\nTodo ser se prostrará",
+    "voz":"musicas/Quando meu Jesus Voltar-voz.mp3",
+    "pb":"musicas/Quando meu Jesus Voltar-pb.mp3"
+  },
+  {
+    "id":12,
+    "titulo":"Nos teus braços",
+    "artista":"Joyce Zanardi",
+    "letra":"Me encontrar, me sentir em Teus braços\nÉ o que me dá forças, meu Pai.\nNão existe lugar mais seguro\nPra eu me esconder, descansar.\nNão haverá um outro lugar pra ir\nSem Tua mão guiando meus pés aonde eu for\nOh, meu Senhor, segura eu  estou em Ti.\nNas asas do Teu amor eu vou.\n\nVou voar, pros Teus braços, Senhor,\nDescansar em Tua paz, oh meu Deus,\nE sentir que em Teus braços eu segura estou.\nNão quero ficar longe do Teu amor.\nOh meu Pai!\n\nTe perder, me perder, eu não posso\nPois em Ti a esperança está.\nNão me deixe perder o caminho,\nQuero seguir Teu querer.\nEu sei que jamais haverá alguém que me ame assim,\nQue entenda o que há em mim e em meu coração.\nA Tua graça me bastará, eu sei\nO Teu amor será um refúgio pra mim.\n\nVou voar, pros Teus braços, Senhor,\nDescansar em Tua paz, oh meu Deus,\nE sentir que em Teus braços eu segura estou.\nNão quero ficar longe do Teu amor\nOh Pai, voando eu vou.\nOh Pai, Teus braços de amor me envolvem\nE sempre me levam a Ti.\n\nVou voar, descansar em Tua paz, oh meu Deus\nE sentir que em Teus braços eu segura estou.\nNão quero ficar longe do Teu amor.\n\nOh meu Pai!",
+    "voz":"musicas/Nos Teus Braços-voz.mp3",
+    "pb":"musicas/Nos Teus Braços-pb.mp3"
+  },
+{
+  "id":13,
+  "titulo":"Regra Áurea",
+  "artista":"Joyce Zanardi",
+  "letra":"Façam aos outros\nTudo o que querem que eles façam pra vocês\nUm grande exemplo Cristo nos deu vamos pra sempre assim fazer\nSempre ajudando ao semelhante\nNossa bondade vamos compartilhar\nUm grande exemplo Cristo nos deu vamos pra sempre assim fazer",
+  "voz":"musicas/Regra Áurea-voz.mp3",
+  "pb":"musicas/Regra Áurea-pb.mp3"
+},
+{
+  "id":14,
+  "titulo":"Doce Troca",
+  "artista":"Joyce Zanardi",
+  "letra":"Que doce troca conheci,\nA que Jesus passou por mim\nSofreu a morte em meu lugar\nDeixou-me vida pra viver em abundância\nAmor assim jamais verei\nAmor que só traduz o bem\nTomaste sobre Ti a culpa\nAliviaste o meu peso, por amor a mim\n\nNão sou merecedor de tão grande amor, Pai.\nMas sou tão grato por me amar assim\na minha forma de provar que te amo é dedicar-me para sempre a Ti\n\nQue doce troca recebi\nEm troca me entrego a Ti\nPra sempre vou louvar teu nome\ne vou servi-lo ate o fim por amor a Ti",
+  "voz":"musicas/Doce Troca-voz.mp3",
+  "pb":"musicas/Doce Troca-pb.mp3"
+},
+{
+  "id":15,
+  "titulo":"Vou Seguindo",
+  "artista":"Joyce Zanardi",
+  "letra":"Vou seguindo meu caminho\nEu sei onde vou chegar.\nMas não posso andar sozinho\nSem meu Deus a me amparar.\nPodem vir as tentações,\nDuras provas a enfrentar.\nSigo em frente a jornada\nSempre firme no Senhor.\n\nSó em Cristo há esperança,\nSó em Cristo há perdão,\nSó em Cristo há segurança, vida eterna, salvação.\n\nHá tormentas, densas trevas,\nNegras sombras ao redor.\nEu seguro a mão do Mestre\nE não tenho mais temor.\nNessa estrada vão surgindo\nPedras a ferir meus pés,\nSão degraus que vou subindo\nDa estrada rumo ao céu.\n\nSó em Cristo há esperança,\nSó em Cristo há perdão,\nSó em Cristo há segurança, vida eterna, salvação.",
+  "voz":"musicas/Vou Seguindo-voz.mp3",
+  "pb":"musicas/Vou Seguindo-pb.mp3"
 }
-  
 ]

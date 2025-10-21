@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar Música</title>
+  <link rel="stylesheet" href="/css/ger-music.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Adicionar Nova Música</h2>
+
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" placeholder="Ex: Nos Teus Braços">
+
+    <label for="artista">Artista:</label>
+    <input type="text" id="artista" placeholder="Ex: Joyce Zanardi">
+
+    <label for="letra">Cole a letra da música:</label>
+    <textarea id="letra" placeholder="Cole a letra aqui..."></textarea>
+
+    <label for="voz">Arquivo de Voz (.mp3):</label>
+    <input type="file" id="voz" accept=".mp3">
+
+    <label for="vozName">Novo nome para voz (sem extensão):</label>
+    <input type="text" id="vozName" placeholder="Ex: Nos Teus Braços-voz">
+
+    <label for="pb">Arquivo PB (.mp3):</label>
+    <input type="file" id="pb" accept=".mp3">
+
+    <label for="pbName">Novo nome para PB (sem extensão):</label>
+    <input type="text" id="pbName" placeholder="Ex: Nos Teus Braços-pb">
+
+    <button id="selecionarPasta">Selecionar pasta 'musicas'</button>
+    <p id="pastaStatus">Nenhuma pasta selecionada ❌</p>
+
+    <div class="buttons">
+      <button id="processar">Processar Letra</button>
+      <button id="copiar">Copiar Música e Salvar Arquivos</button>
+    </div>
+
+    <label for="resultado">Resultado:</label>
+    <textarea id="resultado" readonly></textarea>
+  </div>
+
+  <script src="/js/ger-music.js"></script>
+</body>
+</html>
