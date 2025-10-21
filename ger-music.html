@@ -1,48 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adicionar Música</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Música</title>
+  <link rel="icon" sizes="32" href="img/icon-512.png" />
   <link rel="stylesheet" href="/css/ger-music.css">
 </head>
 <body>
-  <div class="container">
-    <h2>Adicionar Nova Música</h2>
+<div class="container">
+  <h2>Adicionar Nova Música</h2>
 
-    <label for="titulo">Título:</label>
-    <input type="text" id="titulo" placeholder="Ex: Nos Teus Braços">
+  <label for="titulo">Título:</label>
+  <input type="text" id="titulo" placeholder="Ex: Nos Teus Braços">
 
-    <label for="artista">Artista:</label>
-    <input type="text" id="artista" placeholder="Ex: Joyce Zanardi">
+  <label for="artista">Artista:</label>
+  <input type="text" id="artista" placeholder="Ex: Joyce Zanardi">
 
-    <label for="letra">Cole a letra da música:</label>
-    <textarea id="letra" placeholder="Cole a letra aqui..."></textarea>
+  <label for="letra">Cole a letra:</label>
+  <textarea id="letra" placeholder="Cole a letra aqui..."></textarea>
 
-    <label for="voz">Arquivo de Voz (.mp3):</label>
-    <input type="file" id="voz" accept=".mp3">
+  <label for="vozNameJSON">Nome da música Voz:</label>
+  <input type="text" id="vozNameJSON" placeholder="Ex: Nos Teus Braços-voz">
 
-    <label for="vozName">Novo nome para voz (sem extensão):</label>
-    <input type="text" id="vozName" placeholder="Ex: Nos Teus Braços-voz">
+  <label for="pbNameJSON">Nome da música PB:</label>
+  <input type="text" id="pbNameJSON" placeholder="Ex: Nos Teus Braços-pb">
 
-    <label for="pb">Arquivo PB (.mp3):</label>
-    <input type="file" id="pb" accept=".mp3">
+  <button id="processar">Gerar Letra</button>
 
-    <label for="pbName">Novo nome para PB (sem extensão):</label>
-    <input type="text" id="pbName" placeholder="Ex: Nos Teus Braços-pb">
+  <label for="resultado">Resultado JSON:</label>
+  <textarea id="resultado" readonly></textarea>
 
-    <button id="selecionarPasta">Selecionar pasta 'musicas'</button>
-    <p id="pastaStatus">Nenhuma pasta selecionada ❌</p>
+  <hr>
 
-    <div class="buttons">
-      <button id="processar">Processar Letra</button>
-      <button id="copiar">Copiar Música e Salvar Arquivos</button>
-    </div>
+  <label for="musica">Selecionar Música (.mp3):</label>
+  <input type="file" id="musica" accept=".mp3">
+  <label for="musicaName">Novo nome da música:</label>
+  <input type="text" id="musicaName" placeholder="Ex: Nos Teus Braços">
+  <button id="copiarMusica">Salvar</button>
 
-    <label for="resultado">Resultado:</label>
-    <textarea id="resultado" readonly></textarea>
-  </div>
+  <button id="selecionarPasta">Selecionar pasta</button>
+  <p id="pastaStatus">Nenhuma pasta selecionada ❌</p>
+</div>
 
-  <script src="/js/ger-music.js"></script>
+<script src="/js/ger-music.js"></script>
 </body>
 </html>

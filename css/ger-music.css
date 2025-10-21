@@ -1,78 +1,136 @@
-body {
-  background: #ffffff;
-  color: #333;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+/* ===========================
+   VARIÁVEIS GLOBAIS
+=========================== */
+:root{
+  --primary:#0077b6; /* Cor principal (azul) */
+  --text:#333;        /* Cor do texto */
+  --bg:#fff;          /* Cor de fundo */
 }
 
-.container {
-  max-width: 650px;
-  margin: 40px auto;
-  background: #fff;
-  border: 1px solid #0077b6;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 0 15px rgba(0, 119, 182, 0.1);
+/* ===========================
+   RESET E BOX-SIZING
+=========================== */
+*{
+  box-sizing:border-box; /* Inclui padding e border no tamanho do elemento */
 }
 
-h2 {
-  text-align: center;
-  color: #0077b6;
+/* ===========================
+   ESTILOS GERAIS DO BODY
+=========================== */
+body{
+  background:var(--bg); 
+  color:var(--text);
+  font-family:Arial, Helvetica, sans-serif;
+  margin:0;
+  padding:20px;
 }
 
-label {
-  display: block;
-  margin-top: 15px;
-  font-weight: bold;
-  color: #0077b6;
+/* ===========================
+   CONTAINER PRINCIPAL
+=========================== */
+.container{
+  max-width:720px;
+  margin:12px auto;
+  background:#fafafa;
+  border:1px solid rgba(0,0,0,0.06);
+  border-left:6px solid var(--primary); /* Destaque à esquerda */
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.04);
 }
 
-input[type="text"],
-textarea,
-input[type="file"] {
-  width: 100%;
-  padding: 10px;
-  margin-top: 6px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
-  box-sizing: border-box;
+/* ===========================
+   TÍTULOS
+=========================== */
+h2{
+  color:var(--primary);
+  margin-top:0;
 }
 
-textarea {
-  height: 130px;
-  resize: vertical;
-  font-family: monospace;
+/* ===========================
+   LABELS
+=========================== */
+label{
+  display:block;
+  margin-top:12px;
+  color:var(--primary);
+  font-weight:600;
 }
 
-.buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin: 20px 0;
+/* ===========================
+   CAMPOS DE INPUT E TEXTAREA
+=========================== */
+input[type="text"], 
+textarea, 
+input[type="file"]{
+  width:100%;
+  padding:10px;
+  margin-top:6px;
+  border:1px solid #cfd8dc;
+  border-radius:8px;
+  font-size:14px;
 }
 
-button {
-  background: #0077b6;
-  color: #fff;
-  border: none;
-  padding: 10px 25px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
+/* ===========================
+   TEXTAREA ESPECÍFICO
+=========================== */
+textarea{
+  min-height:120px;
+  font-family:monospace; /* Melhor para letras e código */
+  resize:vertical;        /* Permite redimensionar verticalmente */
 }
 
-button:hover {
-  background: #005f8a;
+/* ===========================
+   LINHAS COM FLEXBOX
+=========================== */
+.row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:12px;
 }
 
-#resultado {
-  height: 220px;
-  background: #f7f7f7;
-  border: 1px solid #ccc;
-  font-family: monospace;
-  color: #333;
+/* ===========================
+   BOTOES
+=========================== */
+button{
+  margin-top: 10px;
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:700;
+}
+button:hover{
+  background:#005f8a; /* Cor ao passar o mouse */
+}
+
+/* ===========================
+   STATUS DA PASTA
+=========================== */
+#pastaStatus{
+  margin-left:8px;
+  color:var(--primary);
+  font-weight:600;
+  color: #666;
+}
+
+/* ===========================
+   LINHA DIVISÓRIA
+=========================== */
+hr{
+  margin:20px 0;
+  border:none;
+  border-top:1px solid #eee;
+}
+
+/* ===========================
+   NOTAS E MENSAGENS
+=========================== */
+.note{
+  font-size:13px;
+  color:#666;
+  margin-top:12px;
 }

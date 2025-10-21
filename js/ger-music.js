@@ -1,28 +1,39 @@
 let musicFolderHandle = null;
 
-// Selecionar pasta 'musicas'
+// ====== Restaurar pasta previamente selecionada ======
+window.addEventListener("DOMContentLoaded", async () => {
+  const storedHandle = await getStoredFolderHandle();
+  if (storedHandle && await verifyPermission(storedHandle)) {
+    musicFolderHandle = storedHandle;
+    document.getElementById("pastaStatus").textContent = `Pasta carregada automaticamente: ${musicFolderHandle.name} ✅`;
+  }
+});
+
+// ====== Selecionar pasta ======
 document.getElementById("selecionarPasta").addEventListener("click", async () => {
   try {
     musicFolderHandle = await window.showDirectoryPicker();
+    await saveFolderHandle(musicFolderHandle);
     document.getElementById("pastaStatus").textContent = `Pasta selecionada: ${musicFolderHandle.name} ✅`;
   } catch {
     alert("Seleção de pasta cancelada ou não suportada.");
   }
 });
 
-// Apenas gerar JSON no campo de resultado
+// ====== Gerar JSON da letra ======
 document.getElementById("processar").addEventListener("click", () => {
   const titulo = document.getElementById("titulo").value.trim();
   const artista = document.getElementById("artista").value.trim();
   const letra = document.getElementById("letra").value.trim();
-  const vozName = document.getElementById("vozName").value.trim();
-  const pbName = document.getElementById("pbName").value.trim();
 
   if (!titulo || !artista || !letra) {
-    alert("Preencha pelo menos título, artista e letra para processar!");
+    alert("Preencha pelo menos título, artista e letra!");
     return;
   }
 
+  // Nomes automáticos de voz e PB
+  const vozJSON = `${titulo}-voz`.replace(/\s+/g, " ");
+  const pbJSON = `${titulo}-pb`.replace(/\s+/g, " ");
   const letraFormatada = letra.replace(/"/g, '\\"').replace(/\r?\n/g, "\\n");
 
   const musica = `{
@@ -30,66 +41,83 @@ document.getElementById("processar").addEventListener("click", () => {
   "titulo":"${titulo}",
   "artista":"${artista}",
   "letra":"${letraFormatada}",
-  "voz":"${vozName ? `musicas/${vozName}.mp3` : ""}",
-  "pb":"${pbName ? `musicas/${pbName}.mp3` : ""}"
+  "voz":"musicas/${vozJSON}.mp3",
+  "pb":"musicas/${pbJSON}.mp3"
 }`;
 
   document.getElementById("resultado").value = musica;
-  alert("Letra processada! Agora você pode copiar e salvar os arquivos (se houver).");
+  document.getElementById("vozNameJSON").value = vozJSON;
+  document.getElementById("pbNameJSON").value = pbJSON;
+  alert("Letra gerada com sucesso! Nomes de voz e PB adicionados automaticamente.");
 });
 
-// Copiar JSON e salvar arquivos somente se selecionados
-document.getElementById("copiar").addEventListener("click", async () => {
-  const resultado = document.getElementById("resultado").value.trim();
-  const vozFile = document.getElementById("voz").files[0];
-  const pbFile = document.getElementById("pb").files[0];
-  const vozName = document.getElementById("vozName").value.trim();
-  const pbName = document.getElementById("pbName").value.trim();
+// ====== Copiar música para pasta (corrigido) ======
+document.getElementById("copiarMusica").addEventListener("click", async () => {
+  const musicaInput = document.getElementById("musica");
+  const musicaFile = musicaInput.files[0];
+  const musicaName = document.getElementById("musicaName").value.trim();
 
-  if (!resultado) {
-    alert("Nenhuma letra processada para copiar!");
+  if (!musicaFile || !musicaName) {
+    alert("Selecione uma música e insira o novo nome!");
+    return;
+  }
+
+  if (!musicFolderHandle) {
+    alert("Selecione a pasta 'musicas' antes de copiar a música!");
     return;
   }
 
   try {
-    // Copiar JSON para área de transferência
-    await navigator.clipboard.writeText(resultado);
+    // Lê o arquivo como ArrayBuffer antes de salvar
+    const arrayBuffer = await musicaFile.arrayBuffer();
 
-    if (musicFolderHandle) {
-      // Função auxiliar para salvar arquivo
-      async function salvarArquivo(fileHandle, file) {
-        const writable = await fileHandle.createWritable();
-        await writable.write(await file.arrayBuffer());
-        await writable.close();
-      }
+    const fileHandle = await musicFolderHandle.getFileHandle(`${musicaName}.mp3`, { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(arrayBuffer); // escreve a cópia do arquivo
+    await writable.close();
 
-      // Salvar arquivo Voz se selecionado
-      if (vozFile && vozName) {
-        let fileHandle = await musicFolderHandle.getFileHandle(`${vozName}.mp3`, { create: true });
-        await salvarArquivo(fileHandle, vozFile);
-      }
-
-      // Salvar arquivo PB se selecionado
-      if (pbFile && pbName) {
-        let fileHandle = await musicFolderHandle.getFileHandle(`${pbName}.mp3`, { create: true });
-        await salvarArquivo(fileHandle, pbFile);
-      }
-    }
-
-    alert("Música copiada com sucesso! Arquivos salvos, se selecionados.");
-
-    // Limpar campos
-    document.getElementById("titulo").value = "";
-    document.getElementById("artista").value = "";
-    document.getElementById("letra").value = "";
-    document.getElementById("voz").value = "";
-    document.getElementById("vozName").value = "";
-    document.getElementById("pb").value = "";
-    document.getElementById("pbName").value = "";
-    document.getElementById("resultado").value = "";
-
+    alert("Música copiada com sucesso!");
+    musicaInput.value = ""; // limpa input após salvar
+    document.getElementById("musicaName").value = "";
   } catch (err) {
     console.error(err);
-    alert("Erro ao copiar ou salvar os arquivos. Verifique permissões do navegador.");
+    alert("Erro ao copiar a música. Verifique permissões do navegador.");
   }
 });
+
+// ====== Funções de persistência ======
+async function saveFolderHandle(handle) {
+  const db = await openDB();
+  const tx = db.transaction("folders", "readwrite");
+  tx.objectStore("folders").put(handle, "musicFolder");
+  await tx.complete;
+}
+
+async function getStoredFolderHandle() {
+  const db = await openDB();
+  const tx = db.transaction("folders", "readonly");
+  const handle = await tx.objectStore("folders").get("musicFolder");
+  await tx.complete;
+  return handle;
+}
+
+async function verifyPermission(handle) {
+  const options = { mode: "readwrite" };
+  if ((await handle.queryPermission(options)) === "granted") return true;
+  if ((await handle.requestPermission(options)) === "granted") return true;
+  return false;
+}
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("MusicSystemDB", 1);
+    request.onupgradeneeded = () => {
+      const db = request.result;
+      if (!db.objectStoreNames.contains("folders")) {
+        db.createObjectStore("folders");
+      }
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
